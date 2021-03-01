@@ -1,27 +1,27 @@
 """
 NAME: Stack
 AUTHOR: Tanaka Chitete
-PURPOSE: Implement a Stack
+PURPOSE: Implement Stack
 CREATION: 01/03/2021
-LAST MODIFICATION: 01/03/2021
+LAST MODIFICATION: 02/03/2021
 """
 
 from LinkedList import LinkedList
 
 class Stack:
-    # CONSTRUCTORS
+    # CONSTRUCTOR
 
     """
-    DEFAULT CONSTRUCTOR
+    CONSTRUCTOR
     IMPORT(S): NONE
     EXPORT(S): Address of new Stack
-    PURPOSE: Make new Stack in default state
+    PURPOSE: Make new Stack
     CREATION: 01/03/2021
-    LAST MODIFICATION: 01/03/2021
+    LAST MODIFICATION: 02/03/2021
     """
 
     def __init__(self):
-        self.__stack = LinkedList()
+        self.stack = LinkedList()
 
 
     # SETTERS (MUTATORS)
@@ -29,9 +29,10 @@ class Stack:
     def push(self, element):
         successful = False
         if element != None:
-            self.__stack.insertFirst(element)
+            self.stack.insertFirst(element)
             successful = True
         return successful
+        
         
     # GETTERS (ACCESSORS)
 
@@ -39,37 +40,25 @@ class Stack:
         if self.isEmpty():
             raise RuntimeError("Cannot peek at an element from an empty stack")
         else:
-            return self.__stack.peekFirst()
+            return self.stack.peekFirst()
 
 
     def pop(self):
         if self.isEmpty():
             raise RuntimeError("Cannot pop an element from an empty stack")
         else:
-            return self.__stack.removeFirst()
+            return self.stack.removeFirst()
 
 
     # OPERATORS
 
-    def isEmpty(self):
-        return self.__stack.isEmpty()
-
-    
     def __len__(self):
-        return len(self.__stack)
+        return len(self.stack)
 
 
-    def __str__(self):
-        string = ""
-        nodes = iter(self.__stack)
-        while nodes.hasNext():
-            curr = next(nodes)
-            string = curr + ", " + string
+    def __iter__(self):
+        return iter(self.stack)
 
-        # Removes errant space and comma at end of string
-        string = string[:-2]
 
-        string = "[" + string
-        string += "]"
-
-        return string
+    def isEmpty(self):
+        return self.stack.isEmpty()

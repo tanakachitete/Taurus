@@ -1,27 +1,27 @@
 """
 NAME: Queue
 AUTHOR: Tanaka Chitete
-PURPOSE: Implement a Queue
+PURPOSE: Implement Queue
 CREATION: 01/03/2021
-LAST MODIFICATION: 01/03/2021
+LAST MODIFICATION: 02/03/2021
 """
 
 from LinkedList import LinkedList
 
 class Queue:
-    # CONSTRUCTORS
+    # CONSTRUCTOR
 
     """
-    DEFAULT CONSTRUCTOR
+    CONSTRUCTOR
     IMPORT(S): NONE
     EXPORT(S): Address of new Queue
-    PURPOSE: Make new Queue in default state
+    PURPOSE: Make new Queue
     CREATION: 01/03/2021
-    LAST MODIFICATION: 01/03/2021
+    LAST MODIFICATION: 02/03/2021
     """
 
     def __init__(self):
-        self.__queue = LinkedList()
+        self.queue = LinkedList()
 
 
     # SETTERS (MUTATORS)
@@ -29,35 +29,36 @@ class Queue:
     def enqueue(self, element):
         successful = False
         if element != None:
-            self.__queue.insertLast(element)
+            self.queue.insertLast(element)
             successful = True
         return successful
         
+
     # GETTERS (ACCESSORS)
 
     def peek(self):
         if self.isEmpty():
-            raise RuntimeError("Cannot peek at an element from an empty stack")
+            raise RuntimeError("Cannot peek at an element from an empty queue")
         else:
-            return self.__queue.peekFirst()
+            return self.queue.peekFirst()
 
 
     def dequeue(self):
         if self.isEmpty():
-            raise RuntimeError("Cannot pop an element from an empty stack")
+            raise RuntimeError("Cannot pop an element from an empty queue")
         else:
-            return self.__queue.removeFirst()
+            return self.queue.removeFirst()
 
 
     # OPERATORS
 
-    def isEmpty(self):
-        return self.__queue.isEmpty()
-
-    
     def __len__(self):
-        return len(self.__queue)
+        return len(self.queue)
 
 
-    def __str__(self):
-        return str(self.__queue)
+    def __iter__(self):
+        return iter(self.queue)
+
+
+    def isEmpty(self):
+        return self.queue.isEmpty()

@@ -1,17 +1,57 @@
 """
 NAME: Graph
 AUTHOR: Tanaka Chitete
-PURPOSE: Implement a Graph
+PURPOSE: Implement Graph
 CREATION: 01/03/2021
-LAST MODIFICATION: 01/03/2021
+LAST MODIFICATION: 02/03/2021
 """
 
-from GraphNode import GraphNode
 from LinkedList import LinkedList
 from Queue import Queue
 from Stack import Stack
 
 class Graph:
+    # NESTED CLASSES
+
+    """
+    NAME: Node
+    AUTHOR: Tanaka Chitete
+    PURPOSE: Implement a node for Graph
+    CREATION: 01/03/2021 
+    LAST MODIFICATION: 02/03/2021
+    """
+
+    class Node:
+        # CONSTRUCTORS
+
+        """
+        CONSTRUCTOR
+        IMPORT(S): element (str)
+        EXPORT(S): Address of new Node
+        PURPOSE: Make new Node in alternate state
+        CREATION: 01/03/2021
+        LAST MODIFICATION: 01/03/2021
+        """
+
+        def __init__(self, label):
+            if label == None:
+                raise ValueError("Cannot instantiate a Node with a None label")
+            else:
+                self.label = label
+                self.neighbours = LinkedList()
+                self.wasVisitedBool = False
+
+
+        # SETTERS (MUTATORS)
+
+        def addNeighbour(self, neighbour):
+            self.neighbours.insertLast(neighbour)
+
+        
+        def wasVisited(self):
+            return self.wasVisitedBool
+
+
     # CONSTRUCTORS
 
     """
@@ -24,10 +64,10 @@ class Graph:
     """
 
     def __init__(self, isDirected=False):
-        self.__nodes = LinkedList()
-        self.__isDirected = isDirected
-        self.__nodeCount = 0
-        self.__connectionCount = 0
+        self.nodes = LinkedList()
+        self.isDirected = isDirected
+        self.nodeCountInt = 0
+        self.connectionCountInt = 0
 
 
     # SETTERS (MUTATORS)
@@ -40,13 +80,13 @@ class Graph:
         elif self.has(label):
             raise ValueError("Cannot call add with label of existant node")
         else:
-            newNode = GraphNode(label)
-            self.__nodes.insertLast(newNode)
-            self.__nodeCount += 1
+            newNode = self.Node(label)
+            self.nodes.insertLast(newNode)
+            self.nodeCountInt += 1
     
 
     def connect(self, srcLabel, destLabel):
-        if self.__nodeCount < 2:
+        if self.nodeCountInt < 2:
             raise RuntimeError("Cannot call connect on Graph with less than two nodes")
         elif srcLabel is None or destLabel is None:
             raise ValueError("Cannot call connect with None label")
@@ -55,7 +95,7 @@ class Graph:
         elif srcLabel == destLabel:
             raise ValueError("Cannot call connect with equal labels")
         elif not self.__has(srcLabel) or not self.__has(destLabel):
-            print(self.__nodes)
+            print(self.nodes)
 
             raise ValueError("Cannot call connect with label of non-existant node")
         else:
@@ -65,7 +105,7 @@ class Graph:
     # GETTERS (ACCESSORS)
 
     def get(self, label):
-        if self.__nodes.isEmpty():
+        if self.nodes.isEmpty():
             raise RuntimeError("Cannot call get on an empty graph")
         elif label is None:
             raise ValueError("Cannot call get with a None label")
@@ -78,17 +118,17 @@ class Graph:
 
 
     def nodeCount(self):
-        return self.__nodeCount
+        return self.nodeCountInt
 
 
     def connectionCount(self):
-        return self.__connectionCount
+        return self.connectionCountInt
 
 
     # OPERATORS
 
     def has(self, label):
-        if self.__nodes.isEmpty():
+        if self.nodes.isEmpty():
             return False
         if label is None:
             raise ValueError("Cannot call has with a None label")
@@ -99,7 +139,7 @@ class Graph:
 
 
     def areNeighbours(self, srcLabel, destLabel):
-        if self.__nodeCount < 2:
+        if self.nodeCountInt < 2:
             raise RuntimeError("Cannot call areNeighbours on Graph with less than 2 nodes")
         elif srcLabel is None or destLabel is None:
             raise ValueError("Cannot call areNeighbours with a None label")
@@ -113,7 +153,7 @@ class Graph:
         upcoming = Queue() 
         visited = Queue()
 
-        start = self.__nodes.peekFirst()
+        start = self.nodes.peekFirst()
 
         # Prepares to visit startNode's neighbours
         upcoming.enqueue(start)
@@ -141,7 +181,7 @@ class Graph:
     
 
     def dfs(self):
-        nodes = iter(self.__nodes)
+        nodes = iter(self.nodes)
         visited = Queue()
 
         while nodes.hasNext():
@@ -176,14 +216,14 @@ class Graph:
         dest = self.__get(destLabel)
 
         src.addNeighbour(dest)
-        if not self.__isDirected:
+        if not self.isDirected:
             dest.addNeighbour(src)
 
-        self.__connectionCount += 1
+        self.connectionCountInt += 1
 
 
     def __has(self, label):
-        nodes = iter(self.__nodes)
+        nodes = iter(self.nodes)
         has = False
 
         while nodes.hasNext() and not has:
@@ -196,7 +236,7 @@ class Graph:
 
     def __areNeigbours(self, srcLabel, destLabel):
         areNeighbours = False
-        nodes = iter(self.__nodes)
+        nodes = iter(self.nodes)
         # Finds node with label srcLabel
         while nodes.hasNext() and not areNeighbours:
             node = next(nodes)
@@ -214,7 +254,7 @@ class Graph:
     
     def __get(self, label):
         n = None
-        nodes = iter(self.__nodes)
+        nodes = iter(self.nodes)
         while nodes.hasNext() and not n:
             curr = next(nodes)
             if curr.label == label:
@@ -224,7 +264,7 @@ class Graph:
 
 
     def __unvisit(self):
-        nodes = iter(self.__nodes)
+        nodes = iter(self.nodes)
         while nodes.hasNext():
             curr = next(nodes)
             if curr.wasVisited():
