@@ -1,8 +1,6 @@
 /*
  * NAME: Graph
  * CREATOR: Tanaka Chitete
- * STUDENT_ID: 20169321
- * UNIT: COMP1002
  * PURPOSE: Implement a general-purpose graph
  * CREATION: 19/09/2020
  * LAST MODIFICATION: 09/11/2020

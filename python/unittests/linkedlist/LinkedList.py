@@ -3,12 +3,13 @@ NAME: LinkedList
 AUTHOR: Tanaka Chitete
 PURPOSE: Implement a Linked List
 CREATION: 27/02/2021
-LAST MODIFICATION: 27/02/2021
+LAST MODIFICATION: 01/03/2021
 """
 
-from Node import Node
+from LinkedListNode import LinkedListNode
 
 class LinkedList:
+    # CONSTRUCTORS
 
     """
     DEFAULT CONSTRUCTOR
@@ -25,10 +26,10 @@ class LinkedList:
         self.__count = 0
 
 
-    ## SETTERS (MUTATORS)
+    # SETTERS (MUTATORS)
 
     def insertFirst(self, newFirstElement):
-        newFirst = Node(newFirstElement)
+        newFirst = LinkedListNode(newFirstElement)
 
         if self.isEmpty():
             self.__first = newFirst
@@ -40,7 +41,7 @@ class LinkedList:
 
 
     def insertLast(self, newLastElement):
-        newLast = Node(newLastElement)
+        newLast = LinkedListNode(newLastElement)
 
         if self.isEmpty():
             self.__last = newLast
@@ -51,7 +52,7 @@ class LinkedList:
         self.__count += 1
 
 
-    ## GETTERS (ACCESSORS)
+    # GETTERS (ACCESSORS)
 
     def peekFirst(self):
         if self.isEmpty():
@@ -93,7 +94,7 @@ class LinkedList:
             return removedLastElement
 
 
-    ## OPERATORS
+    # OPERATORS
 
     def isEmpty(self):
         return self.__first is None
@@ -103,7 +104,7 @@ class LinkedList:
         return self.__count
 
 
-    ## ITERATOR
+    # ITERATOR
 
     def __iter__(self):
         return Iterator(self)

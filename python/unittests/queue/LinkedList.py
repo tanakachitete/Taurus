@@ -3,10 +3,10 @@ NAME: LinkedList
 AUTHOR: Tanaka Chitete
 PURPOSE: Implement a Linked List
 CREATION: 27/02/2021
-LAST MODIFICATION: 27/02/2021
+LAST MODIFICATION: 03/01/2021
 """
 
-from Node import Node
+from LinkedListNode import LinkedListNode
 
 class LinkedList:
     # CONSTRUCTORS
@@ -29,7 +29,7 @@ class LinkedList:
     # SETTERS (MUTATORS)
 
     def insertFirst(self, newFirstElement):
-        newFirst = Node(newFirstElement)
+        newFirst = LinkedListNode(newFirstElement)
 
         if self.isEmpty():
             self.__first = newFirst
@@ -41,7 +41,7 @@ class LinkedList:
 
 
     def insertLast(self, newLastElement):
-        newLast = Node(newLastElement)
+        newLast = LinkedListNode(newLastElement)
 
         if self.isEmpty():
             self.__last = newLast
