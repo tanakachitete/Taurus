@@ -31,17 +31,22 @@ class Set:
     # GETTERS (ACCESSORS)
 
     def has(self, element):
-        return self.entries.has_key(element)
+        return element in self.entries
+
 
     def remove(self, element):
         del self.entries[element]
 
 
-    # OPERATORS
-
     def __len__(self):
         return len(self.entries)
 
+
+    def isEmpty(self):
+        return not self.entries
+
+
+    # OPERATORS
 
     def __str__(self):
         return str(list(self.entries.keys()))

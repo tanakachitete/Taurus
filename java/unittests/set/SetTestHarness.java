@@ -16,7 +16,7 @@ public class SetTestHarness {
     public static final int OPTION_1 = 1;
     public static final int OPTION_2 = 2;
     public static final int OPTION_3 = 3;
-    public static final int OPTION_6 = 6;
+    public static final int OPTION_4 = 4;
 
     public static void main(String[] args) {
         int sel;
@@ -26,11 +26,10 @@ public class SetTestHarness {
                 "1. Add\n" +
                 "2. Remove\n" +
                 "3. Contains\n" +
-                "4. Display\n" +
-                "5. Write\n" +
+                "4. Print\n" +
                 "0. Quit\n");
             String prompt = "Selection: ";
-            sel = UserInterface.userInput(QUIT, OPTION_6, prompt);
+            sel = UserInterface.userInput(QUIT, OPTION_4, prompt);
 
             switch (sel) {
                 // User input specifies "Add Entry"
@@ -47,7 +46,7 @@ public class SetTestHarness {
                     break;
                 // User input specifies "Display"
                 case 4:
-                    display(set);
+                    print(set);
                     break;
             }
         }
@@ -75,7 +74,6 @@ public class SetTestHarness {
         catch (IllegalArgumentException e) {
             System.out.println("\n" + e.getMessage() + "\n");
         }
-
     }
 
     /*
@@ -98,9 +96,9 @@ public class SetTestHarness {
 
     /*
      * NAME: contains
-     * IMPORT(S): set (DSAHashSet)
+     * IMPORT(S): set (Set)
      * EXPORT(S): NONE
-     * PURPOSE: Checks if an entry is present in a hash set
+     * PURPOSE: Checks if a user-specified entry is in set
      * CREATION: 22/10/2020
      * LAST MODIFICATION: 22/10/2020
      */
@@ -122,19 +120,18 @@ public class SetTestHarness {
     }
 
     /*
-     * NAME: display
-     * IMPORT(S): set (DSAHashSet)
+     * NAME: print
+     * IMPORT(S): set (Set)
      * EXPORT(S): NONE
-     * PURPOSE: Print hash table entries
+     * PURPOSE: Print Set
      * CREATION: 28/09/2020
-     * LAST MODIFICATION: 28/09/2020
+     * LAST MODIFICATION: 02/03/2021
      */
 
-    private static void display(Set<String> set) {
-        System.out.println("\nDisplay\n");
+    private static void print(Set<String> set) {
+        System.out.println("\nPrint\n");
 
         System.out.println(set);
-        System.out.println("\nCount: " + set.size());
-        System.out.println("Load Factor: " + set.load() + "\n");
+        System.out.println();
     }
 }

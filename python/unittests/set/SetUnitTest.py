@@ -15,7 +15,6 @@ def main():
     OPTION_2 = 2
     OPTION_3 = 3
     OPTION_4 = 4
-    OPTION_6 = 6
 
     mySet = Set()
     while True:
@@ -68,9 +67,9 @@ def has(mySet):
     print()
 
     if mySet.has(element):
-        print("Element is present in Set")
+        print("Element is present in Set\n")
     else:
-        print("Element is not present in Set")
+        print("Element is not present in Set\n")
 
 
 def display(mySet):
