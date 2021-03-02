@@ -45,7 +45,3 @@ class Set:
 
     def __str__(self):
         return str(list(self.entries.keys()))
-
-
-    def isEmpty(self):
-        return not self.entries
