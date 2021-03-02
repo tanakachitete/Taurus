@@ -11,7 +11,7 @@
  * LAST MODIFICATION: 22/10/2020
  */
 
-public class SetUnitTest {
+public class SetTestHarness {
     public static final int QUIT = 0;
     public static final int OPTION_1 = 1;
     public static final int OPTION_2 = 2;
