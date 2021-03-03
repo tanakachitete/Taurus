@@ -1,9 +1,9 @@
 """
 NAME: InteractiveEntry
 AUTHOR: Tanaka Chitete
-PURPOSE: Implement entry point for Interactive mode
+PURPOSE: Implement entry point for Interactive mode operations
 CREATION: 03/03/2021
-LAST MODIFICATION: 02/03/2021
+LAST MODIFICATION: 03/03/2021
 """
 
 import InteractiveAnalyser
@@ -28,12 +28,12 @@ def entry():
     userInput = None
     while True:
         print("Interactive Menu\n\n" + \
-            "1. Asset Details\n" + \
-            "2. Trade Details\n" + \
-            "3. Trade Paths\n" + \
-            "4. Asset Filter\n" + \
-            "5. Asset Overview\n" + \
-            "6. Trade Overview\n" + \
+            "1. Get and Display Market Information of Given Trade Pair\n" + \
+            "2. Get and Display Recent Trades (sorted by price, quantity and quote)\n" + \
+            "3. Get and Display All Trade Paths Between Two Given Assets\n" + \
+            "4. Get and Display All Trade Pairs Involving Given Asset\n" + \
+            "5. Get and Display Asset Filtered Trade Pairs\n" + \
+            "6. Configure Asset Filter\n" + \
             "0. Quit\n"
         )   
         prompt = "Input: "
@@ -56,22 +56,15 @@ LAST MODIFICATION: 03/03/2021
 """
 
 def launch(userInput, excludedAssets):
-    ASSET_DETAILS = 1
-    TRADE_DETAILS = 2
-    TRADE_PATHS = 3
-    ASSET_FILTER = 4
-    ASSET_OVERVIEW = 5
-    # TRADE_OVERVIEW = 6, Unnecessary as userInput will be between 1 and 6 inclusive
-
-    if userInput == ASSET_DETAILS:
-        InteractiveAnalyser.getAssetTradePairs()
-    elif userInput == TRADE_DETAILS:
-        InteractiveAnalyser.getPriceChangeInfo()
-    elif userInput == TRADE_PATHS:
-        InteractiveAnalyser.getAssetGraph()
-    elif userInput == ASSET_FILTER:
-        InteractiveAndReportAnalyser.changeExcludedAssets()
-    elif userInput == ASSET_OVERVIEW:
-        InteractiveAnalyser.getAllTradePairs()
-    else:
-        InteractiveAnalyser.getRecentTrades()
+    if userInput == 1:
+        InteractiveAnalyser.getAndDisplayMarketInformationOfGivenTradePair()
+    elif userInput == 2:
+        InteractiveAnalyser.getAndDisplayRecentTrades()
+    elif userInput == 3:
+        InteractiveAnalyser.getAndDisplayAllTradePathsBetweenTwoGivenAssets()
+    elif userInput == 4:
+        InteractiveAnalyser.getAndDisplayAllTradePairsInvolvingGivenAsset()
+    elif userInput == 5:
+        InteractiveAnalyser.getAndDisplayAssetFilteredTradePairs()
+    elif userInput == 6:
+        InteractiveAndReportAnalyser.configureAssetFilter()
