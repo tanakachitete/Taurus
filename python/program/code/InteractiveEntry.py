@@ -6,6 +6,7 @@ CREATION: 03/03/2021
 LAST MODIFICATION: 04/03/2021
 """
 
+import FilteredTradePairs
 import RecentTrades
 import MarketInfo
 import Set
@@ -23,7 +24,7 @@ LAST MODIFICATION: 04/03/2021
 """
 
 def menu():
-    assetFilter = Set()
+    cryptoFilter = Set()
     userInput = None
     while True:
         print("Taurus (Interactive Mode)\n\n" + \
@@ -42,19 +43,19 @@ def menu():
         if userInput == 0:
             break
         else:
-            launch(userInput, assetFilter)
+            launch(userInput, cryptoFilter)
 
 
 """
 NAME: launch
-IMPORT(S): userInput (int), assetFilter (Set)
+IMPORT(S): userInput (int), cryptoFilter (Set)
 EXPORT(S): None
 PURPOSE: Launch user-specified operation
 CREATION: 03/03/2021
 LAST MODIFICATION: 04/03/2021
 """
 
-def launch(userInput, assetFilter):
+def launch(userInput, cryptoFilter):
     if userInput == 1:
         MarketInfo.subMenu()
     elif userInput == 2:
@@ -64,6 +65,6 @@ def launch(userInput, assetFilter):
     elif userInput == 4:
         TradePairs.subMenu()
     elif userInput == 5:
-        FilteredTradePairs.subMenu(assetFilter)
+        FilteredTradePairs.subMenu(cryptoFilter)
     elif userInput == 6:
-        AssetFilter.subMenu(assetFilter)
+        CryptoFilter.subMenu(cryptoFilter)

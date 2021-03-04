@@ -44,6 +44,7 @@ def subMenu(assetFilter):
         elif selection == 4:
             JSON_IOWrapper.saveToFile(exchangeInfo)
 
+
 """
 NAME: printFilteredTradePairs
 IMPORT(S): exchangeInfo (dict), assetFilter (Set)

@@ -32,6 +32,7 @@ def subMenu():
         )
         prompt = "Selection: "
         selection = UserInterface.getInt(0, 4, prompt)
+        
         print() # Formatting purposes
 
         if selection == 1:

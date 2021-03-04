@@ -37,7 +37,7 @@ def entry(assetFilename, tradeFilename):
         print(f"Failed to load {tradeFilename}")
     
     if exchangeInfo and recentTrades:
-        assetFilter = Set()
+        cryptoFilter = Set()
         userInput = None
         while True:
             print("Taurus (Report Mode)\n\n" + \
@@ -53,24 +53,24 @@ def entry(assetFilename, tradeFilename):
             if userInput == QUIT:
                 break
             else:
-                launch(userInput, assetFilter)
+                launch(userInput, cryptoFilter)
     else:
         print("Cannot execute operations with invalid/non-existent asset and/or trade file")
 
 
 """
 NAME: launch
-IMPORT(S): userInput (int), assetFilter (Set), exchangeInfo (dict), recentTrades (dict)
+IMPORT(S): userInput (int), cryptoFilter (Set), exchangeInfo (dict), recentTrades (dict)
 EXPORT(S): None
 PURPOSE: Launch user-specified operation
 CREATION: 03/03/2021
 LAST MODIFICATION: 04/03/2021
 """
 
-def launch(userInput, assetFilter, exchangeInfo, recentTrades):
+def launch(userInput, cryptoFilter, exchangeInfo, recentTrades):
     if userInput == 1:
         RecentTrades.printRecentTrades(recentTrades)
     elif userInput == 2:
-        FilteredTradePairs.printFiltered(exchangeInfo, assetFilter)
+        FilteredTradePairs.printFiltered(exchangeInfo, cryptoFilter)
     elif userInput == 3:
-        AssetFilter.subMenu(assetFilter)
+        AssetFilter.subMenu(cryptoFilter)
