@@ -1,7 +1,7 @@
 """
-NAME: QuickSort.py
+NAME: RecentTradesHelper.py
 AUTHOR: Tanaka Chitete
-PURPOSE: Sort recentTradesList by keyStat value using self-implemented Quicksort
+PURPOSE: House quicksort and partition functions for RecentTrades.py
 CREATION: 04/03/2021
 LAST MODIFICATION: 04/03/2021
 """

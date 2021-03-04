@@ -1,14 +1,14 @@
 """
 NAME: RecentTrades.py
 AUTHOR: Tanaka Chitete
-PURPOSE: Implement core logic for getting and displaying recent trades
+PURPOSE: Get and print user-specified number of recent trades (sorted by price, quantity and quote)
 CREATION: 04/03/2021
 LAST MODIFICATION: 04/03/2021
 """
 
 import datetime
 import JSON_IOWrapper
-import QuickSort
+import RecentTradesHelper
 import UserInterface
 
 """
@@ -65,7 +65,7 @@ def printRecentTrades(recentTrades):
         keyStats = ["price", "qty", "quoteQty"]
         printStats = ["Price", "Quantity", "Quote"]
         for (keyStatistic, printStatistic) in zip(keyStats, printStats):
-            QuickSort.quicksort(recentTradesList, "price")
+            RecentTradesHelper.quicksort(recentTradesList, "price")
 
             print(f"Top {len(recentTradesList)} Trades Sorted by {printStatistic}")
 

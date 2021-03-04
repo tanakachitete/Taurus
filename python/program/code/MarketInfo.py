@@ -1,7 +1,7 @@
 """
 NAME: MarketInfo.py
 AUTHOR: Tanaka Chitete
-PURPOSE: Implement core logic for getting and displaying market info of given trade pair
+PURPOSE: Get and print market info of user-specified trade pair
 CREATION: 04/03/2021
 LAST MODIFICATION: 04/03/2021
 """
@@ -29,7 +29,7 @@ def subMenu():
             "4. Save to File\n" + \
             "0. Exit\n"
         )
-        prompt = "Input: "
+        prompt = "Selection: "
         selection = UserInterface.getInt(0, 4, prompt)
         print() # Formatting purposes
 

@@ -1,13 +1,13 @@
 """
 NAME: InteractiveEntry
 AUTHOR: Tanaka Chitete
-PURPOSE: Implement entry point for Interactive mode operations
+PURPOSE: Act as entry point for Taurus (Interactive Mode)
 CREATION: 03/03/2021
-LAST MODIFICATION: 03/03/2021
+LAST MODIFICATION: 04/03/2021
 """
 
-import InteractiveAnalyser
-import InteractiveAndReportAnalyser
+import RecentTrades
+import MarketInfo
 import Set
 import UserInterface
 
@@ -17,17 +17,17 @@ IMPORT(S): None
 EXPORT(S): None
 PURPOSE: Print menu and prepare to launch user-specified operation
 CREATION: 03/03/2021
-LAST MODIFICATION: 03/03/2021
+LAST MODIFICATION: 04/03/2021
 """
 
 def menu():
-    excludedAssets = Set()
+    assetFilter = Set()
     userInput = None
     while True:
         print("Taurus (Interactive Mode)\n\n" + \
-            "1. Get and Display Market Information of Given Trade Pair\n" + \
+            "1. Get and Display Market Information of Trade Pair\n" + \
             "2. Get and Display Recent Trades (sorted by price, quantity and quote)\n" + \
-            "3. Get and Display All Trade Paths Between Two Given Assets\n" + \
+            "3. Get and Display All Trade Paths Between Two Crypto-currencies\n" + \
             "4. Get and Display All Trade Pairs Involving Given Asset\n" + \
             "5. Get and Display Asset Filtered Trade Pairs\n" + \
             "6. Configure Asset Filter\n" + \
@@ -40,19 +40,19 @@ def menu():
         if userInput == 0:
             break
         else:
-            launch(userInput, excludedAssets)
+            launch(userInput, assetFilter)
 
 
 """
 NAME: launch
-IMPORT(S): userInput (int), excludedAssets (Set)
+IMPORT(S): userInput (int), assetFilter (Set)
 EXPORT(S): None
 PURPOSE: Launch user-specified operation
 CREATION: 03/03/2021
-LAST MODIFICATION: 03/03/2021
+LAST MODIFICATION: 04/03/2021
 """
 
-def launch(userInput, excludedAssets):
+def launch(userInput, assetFilter):
     if userInput == 1:
         MarketInfo.subMenu()
     elif userInput == 2:
@@ -64,4 +64,4 @@ def launch(userInput, excludedAssets):
     elif userInput == 5:
         FilteredTradePairs.subMenu()
     elif userInput == 6:
-        AssetFilter.subMenu()
+        AssetFilter.subMenu(assetFilter)

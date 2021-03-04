@@ -1,15 +1,13 @@
 """
 NAME: ReportEntry
 AUTHOR: Tanaka Chitete
-PURPOSE: Implement entry point for Report mode operations
+PURPOSE: Act and entry point for Taurus (Report Mode)
 CREATION: 03/03/2021
-LAST MODIFICATION: 03/03/2021
+LAST MODIFICATION: 04/03/2021
 """
 
-import InteractiveAndReportAnalyser
-import InteractiveAndReportPrinter
-import InteractiveAndReportSorter
 import JSON_IO
+import RecentTrades
 import Set
 import UserInterface
 
@@ -19,7 +17,7 @@ IMPORT(S): assetFilename (str), tradeFilename (str)
 EXPORT(S): None
 PURPOSE: Read asset and trade files; retrieve user input and prepare to launch specified operation
 CREATION: 03/03/2021
-LAST MODIFICATION: 03/03/2021
+LAST MODIFICATION: 04/03/2021
 """
 
 def entry(assetFilename, tradeFilename):
@@ -66,19 +64,12 @@ IMPORT(S): userInput (int), assetFilter (Set), exchangeInfo (dict), recentTrades
 EXPORT(S): None
 PURPOSE: Launch user-specified operation
 CREATION: 03/03/2021
-LAST MODIFICATION: 03/03/2021
+LAST MODIFICATION: 04/03/2021
 """
 
 def launch(userInput, assetFilter, exchangeInfo, recentTrades):
     if userInput == 1:
-        RecentTrades.sortByPrice(recentTrades)
-        RecentTrades.printSortedByPrice(recentTrades)
-
-        RecentTrades.sortByQty(recentTrades)
-        RecentTrades.printSortedByPrice(recentTrades)
-
-        RecentTrades.sortByQty(recentTrades)
-        RecentTrades.printSortedByPrice(recentTrades)
+        RecentTrades.printRecentTrades(recentTrades)
     elif userInput == 2:
         FilteredTradePairs.printFiltered(exchangeInfo, assetFilter)
     elif userInput == 3:
