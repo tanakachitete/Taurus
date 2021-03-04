@@ -1,7 +1,7 @@
 """
-NAME: TradePairsAndTradePathsHelper.py
+NAME: ExchangeInfoGetter.py
 AUTHOR: Tanaka Chitete
-PURPOSE: House getExchangeInfoFromAPI functions for TradePairsAndTradePathsHelper.py
+PURPOSE: Get exchange info from Binance API
 CREATION: 04/03/2021
 LAST MODIFICATION: 04/03/2021
 """
