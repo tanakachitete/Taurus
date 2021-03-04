@@ -8,7 +8,7 @@ LAST MODIFICATION: 04/03/2021
 
 import datetime
 import JSON_IOWrapper
-import RecentTradesHelper
+import Quicksort
 import UserInterface
 
 """
@@ -65,7 +65,7 @@ def printRecentTrades(recentTrades):
         keyStats = ["price", "qty", "quoteQty"]
         printStats = ["Price", "Quantity", "Quote"]
         for (keyStatistic, printStatistic) in zip(keyStats, printStats):
-            RecentTradesHelper.quicksort(recentTradesList, "price")
+            Quicksort.quicksort(recentTradesList, "price")
 
             print(f"Top {len(recentTradesList)} Trades Sorted by {printStatistic}")
 

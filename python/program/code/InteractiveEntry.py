@@ -9,6 +9,7 @@ LAST MODIFICATION: 04/03/2021
 import RecentTrades
 import MarketInfo
 import Set
+import TradePaths
 import UserInterface
 
 """
@@ -28,7 +29,7 @@ def menu():
             "1. Get and Display Market Information of Trade Pair\n" + \
             "2. Get and Display Recent Trades (sorted by price, quantity and quote)\n" + \
             "3. Get and Display All Trade Paths Between Two Crypto-currencies\n" + \
-            "4. Get and Display All Trade Pairs Involving Given Asset\n" + \
+            "4. Get and Display All Trade Pairs Involving Crypto-currency\n" + \
             "5. Get and Display Asset Filtered Trade Pairs\n" + \
             "6. Configure Asset Filter\n" + \
             "0. Quit\n"

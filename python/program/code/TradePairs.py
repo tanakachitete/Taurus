@@ -1,12 +1,13 @@
 """
-NAME: TradePaths.py
+NAME: TradePairs.py
 AUTHOR: Tanaka Chitete
-PURPOSE: Get and print all trade paths between two given assets
+PURPOSE: Get and print all trade pairs involving crypto-currency
 CREATION: 04/03/2021
 LAST MODIFICATION: 04/03/2021
 """
 
-import TradePathsHelper
+import JSON_IOWrapper
+import Quicksort
 import TradePairsAndTradePathsHelper
 import UserInterface
 
@@ -22,7 +23,7 @@ LAST MODIFICATION: 04/03/2021
 def subMenu():
     exchangeInfo = None
     while True:
-        print("Get and Display All Trade Paths Between Two Crypto-currencies\n\n" + \
+        print("Get and Display All Trade Pairs Involving Asset\n\n" + \
             "1. Display\n" + \
             "2. Make Live Request\n" + \
             "3. Load from File\n" + \
@@ -31,42 +32,50 @@ def subMenu():
         )
         prompt = "Selection: "
         selection = UserInterface.getInt(0, 4, prompt)
-
         print() # Formatting purposes
 
         if selection == 1:
-            printTradePaths(exchangeInfo)
+            printAllTradePairs(exchangeInfo)
         elif selection == 2:
             TradePairsAndTradePathsHelper.getExchangeInfoFromAPI(exchangeInfo)
         elif selection == 3:
             JSON_IOWrapper.loadFromFile(exchangeInfo)
         elif selection == 4:
             JSON_IOWrapper.saveToFile(exchangeInfo)
+        else:
+            break
 
 
 """
-NAME: printTradePaths
+NAME: printAllTradePairs
 IMPORT(S): exchangeInfo (dict)
 EXPORT(S): None
-PURPOSE: Using cryptoGraph, print all trade paths between base and quote
+PURPOSE: Print all currently-trading trade pairs
 CREATION: 04/03/2021
 LAST MODIFICATION: 04/03/2021
 """
 
-def printTradePaths(exchangeInfo):
+def printAllTradePairs(exchangeInfo):
     if exchangeInfo is None:
         print("Cannot display before making live request or loading from file")
     else:
-        cryptoGraph = TradePathsHelper.makeCryptoGraph(exchangeInfo)
+        tradePairs = Quicksort.quicksort(exchangeInfo["symbols"])
 
-        prompt = "Start crypto-currency (case-insensitive): "
-        start = UserInterface.getStr(prompt)
-
-        prompt = "Destination crypto-currency (case-insensitive): "
-        dest = UserInterface.getStr(prompt)
+        prompt = "Crypto-currency (case-insensitive): "
+        crypto = UserInterface.getStr(prompt)
+        crypto = crypto.upper()
 
         print() # Formatting purposes
 
-        print("All Trade Paths from {start} to {dest}\n")
-
-        cryptoGraph.printPaths(start, dest)
+        numTradePairsWithCryptoAsBase = 0
+        numTradePairsWithCryptoAsQuote = 0
+        for pair in tradePairs:
+            # Ensures only active trade pairs are considered
+            if pair["status"] == "TRADING": 
+                # Prints trade pair if user-specified crypto-currency is either base or quote
+                if crypto == pair["baseAsset"]:
+                    print(pair["symbol"])
+                    numTradePairsWithCryptoAsBase += 1
+                elif crypto == pair["quoteAsset"]:
+                    print(pair["symbol"])
+                    numTradePairsWithCryptoAsQuote += 1
