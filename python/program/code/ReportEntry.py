@@ -42,13 +42,13 @@ def entry(assetFilename, tradeFilename):
         assetFilter = Set()
         userInput = None
         while True:
-            print("Report Menu\n\n" + \
+            print("Taurus (Report Mode)\n\n" + \
                 "1. Display Recent Trades (sorted by price, quantity and quote)\n" + \
                 "2. Display Asset Filtered Trade Pairs\n" + \
                 "3. Configure Asset Filter\n" + \
                 "0. Quit\n"
             )
-            prompt = "Input: "
+            prompt = "Selection: "
             userInput = UserInterface.getInt(QUIT, OPTION_3, prompt)
             print() # Formatting purposes
 
@@ -71,15 +71,15 @@ LAST MODIFICATION: 03/03/2021
 
 def launch(userInput, assetFilter, exchangeInfo, recentTrades):
     if userInput == 1:
-        InteractiveAndReportSorter.sortRecentTradesByPrice(recentTrades)
-        InteractiveAndReportPrinter.printRecentTradesSortedByPrice(recentTrades)
+        RecentTrades.sortByPrice(recentTrades)
+        RecentTrades.printSortedByPrice(recentTrades)
 
-        InteractiveAndReportSorter.sortRecentTradesByQty(recentTrades)
-        InteractiveAndReportPrinter.printRecentTradesSortedByQty(recentTrades)
+        RecentTrades.sortByQty(recentTrades)
+        RecentTrades.printSortedByPrice(recentTrades)
 
-        InteractiveAndReportSorter.sortRecentTradesByQuote(recentTrades)
-        InteractiveAndReportPrinter.printRecentTradesSortedByQuote(recentTrades)
+        RecentTrades.sortByQty(recentTrades)
+        RecentTrades.printSortedByPrice(recentTrades)
     elif userInput == 2:
-        InteractiveAndReportAnalyser.displayAssetFilteredTradePairs(exchangeInfo, assetFilter)
+        FilteredTradePairs.printFiltered(exchangeInfo, assetFilter)
     elif userInput == 3:
-        InteractiveAndReportAnalyser.configureAssetFilter(assetFilter)
+        AssetFilter.subMenu(assetFilter)

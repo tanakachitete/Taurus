@@ -1,5 +1,5 @@
 """
-NAME: Taurus
+NAME: JSON_IO
 AUTHOR: Tanaka Chitete
 PURPOSE: Read and write JSON objects obtained from either APIs or files
 CREATION: 03/03/2021

@@ -12,22 +12,19 @@ import Set
 import UserInterface
 
 """
-NAME: entry
+NAME: menu
 IMPORT(S): None
 EXPORT(S): None
-PURPOSE: Print Interactive mode menu, retrieve user input and prepare to launch specified operation
+PURPOSE: Print menu and prepare to launch user-specified operation
 CREATION: 03/03/2021
 LAST MODIFICATION: 03/03/2021
 """
 
-def entry():
-    QUIT = 0
-    OPTION_6 = 6
-
+def menu():
     excludedAssets = Set()
     userInput = None
     while True:
-        print("Interactive Menu\n\n" + \
+        print("Taurus (Interactive Mode)\n\n" + \
             "1. Get and Display Market Information of Given Trade Pair\n" + \
             "2. Get and Display Recent Trades (sorted by price, quantity and quote)\n" + \
             "3. Get and Display All Trade Paths Between Two Given Assets\n" + \
@@ -36,11 +33,11 @@ def entry():
             "6. Configure Asset Filter\n" + \
             "0. Quit\n"
         )   
-        prompt = "Input: "
-        userInput = UserInterface.getInt(QUIT, OPTION_6, prompt)
+        prompt = "Selection: "
+        userInput = UserInterface.getInt(0, 6, prompt)
         print() # Formatting purposes
 
-        if userInput == QUIT:
+        if userInput == 0:
             break
         else:
             launch(userInput, excludedAssets)
@@ -57,14 +54,14 @@ LAST MODIFICATION: 03/03/2021
 
 def launch(userInput, excludedAssets):
     if userInput == 1:
-        InteractiveAnalyser.getAndDisplayMarketInformationOfGivenTradePair()
+        MarketInfo.subMenu()
     elif userInput == 2:
-        InteractiveAnalyser.getAndDisplayRecentTrades()
+        RecentTrades.subMenu()
     elif userInput == 3:
-        InteractiveAnalyser.getAndDisplayAllTradePathsBetweenTwoGivenAssets()
+        TradePaths.subMenu()
     elif userInput == 4:
-        InteractiveAnalyser.getAndDisplayAllTradePairsInvolvingGivenAsset()
+        TradePairs.subMenu()
     elif userInput == 5:
-        InteractiveAnalyser.getAndDisplayAssetFilteredTradePairs()
+        FilteredTradePairs.subMenu()
     elif userInput == 6:
-        InteractiveAndReportAnalyser.configureAssetFilter()
+        AssetFilter.subMenu()
