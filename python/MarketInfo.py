@@ -42,7 +42,7 @@ def subMenu():
         elif selection == 2:
             marketInfo = getMarketInfoFromAPI()
         elif selection == 3:
-            marketInfo = JSON_IOWrapper.readFromFile()
+            marketInfo = JSON_IOWrapper.readFromFileWrapper()
         elif selection == 4:
             JSON_IOWrapper.writeToFileWrapper(marketInfo)
         else:
@@ -64,7 +64,7 @@ def printMarketInfo(marketInfo):
     else:
         print(f"{marketInfo['symbol']} Market Information\n")
 
-        print(f"Latest Price (USD):        {Formatter.formatMonetaryFigure(marketInfo['lastPrice'])}")
+        print(f"Latest Price (USD):        {Formatter.formatReal(marketInfo['lastPrice'])}")
         print(f"Price Change (USD):       {Formatter.formatPctChange(marketInfo['priceChange'])}")
         print(f"Price Change (%):         {Formatter.formatPctChange(marketInfo['priceChangePercent'])}\n")
 

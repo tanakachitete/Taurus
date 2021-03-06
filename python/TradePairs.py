@@ -58,7 +58,7 @@ LAST MODIFICATION: 04/03/2021
 
 def printAllTradePairs(exchangeInfo):
     if exchangeInfo is None:
-        print("Cannot display before making live request or loading from file")
+        print("Cannot display before making live request or loading from file\n")
     else:
         prompt = "Crypto-currency (case-insensitive): "
         crypto = UserInterface.getStr(prompt)
