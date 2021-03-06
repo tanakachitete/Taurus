@@ -14,34 +14,45 @@ save data retrieved from the API to JSON files and load the very same data into 
 
 ### Installation
 
-1. Install the ```Taurus``` archive by downloading [```Taurus-master.zip```](https://github.com/tchitete1/Taurus/archive/master.zip)
+1. Download the ```taurus-master``` archive by downloading [```taurus-master.zip```](https://github.com/tanakachitete/taurus/archive/master.zip)
 2. Open a new terminal window in the directory where the archive was downloaded
-3. Unzip the archive using the following command to obtain the executable ```Taurus.jar``` JAR file:
+3. Unzip the archive using the following command to obtain the ```taurus-master``` directory:
 ```
-unzip Taurus-master.zip
+unzip taurus-master.zip
 ```
-4. Change into the ```Taurus-master``` directory by executing the following command:
+4. Delete ```taurus-master.zip``` using the following command:
 ```
-cd Taurus-master
+rm taurus-master.zip
+```
+5. Change into the ```taurus-master/java``` directory by executing the following command:
+```
+cd taurus-master/java
+```
+
+### Compilation
+
+* To compile ```Taurus.java```, enter the following:
+```
+javac -cp .:json-20200518.jar Taurus.java
 ```
 
 ### Execution
 #### Interactive Mode
 
-* To execute ```Taurus``` in Interactive Mode, execute the following:
+* To execute ```Taurus.java``` in Interactive Mode, execute the following:
 ```
-java -jar Taurus.jar -i
+java -cp .:json-20200518.jar Taurus -i
 ```
 
 #### Report Mode
 
-* To execute ```Taurus``` in Report Mode, execute the following:
+* To execute ```Taurus.java``` in Report Mode, execute the following:
 ```
-java -jar Taurus.jar -r <asset filename>.json <trade filename>.json
+java -cp .:json-20200518.jar Taurus -r <asset filename>.json <trade filename>.json
 ```
 
-where ```asset filename``` and ```trade filename``` are both JSON files containing exchange information and trade details regarding
-a particular trade pair, respectively. These files can be obtained from running ```Taurus``` in Interactive Mode.
+where ```<asset filename>``` and ```<trade filename>``` are both JSON files containing exchange information and trade details regarding
+a particular trade pair, respectively. These files can be obtained from running ```Taurus.java``` in Interactive Mode.
 
 ## Author
 
