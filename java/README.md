@@ -57,6 +57,20 @@ where ```<asset filename>``` and ```<trade filename>``` are both JSON files cont
 
 ```<trade filename>``` is obtained by running ```Taurus.java``` in Interactive. Upon program startup, at the ```Selection:``` prompt of ```Interactive Menu```, enter ```6```. Then, at the ```Selection:``` prompt of ```Trade Overview Menu```, enter ```2```. At the ```Base Asset Symbol:``` prompt enter a crypto-currency of your choosing (e.g. ```ETH```), then at the ```Quote Asset Symbol:``` prompt enter another crypto-currency of your choosing (e.g. ```BTC```) and, finally, at the ```Number of results to return:``` prompt enter the number of recent trades you would like to view. Afterwards, at the ```Selection:``` prompt of ```Trade Overview Menu``` enter ```4```. Lastly, at the ```Filename (without .json extension):``` prompt enter a filename of your choosing (without the .json extension as the program will automatically append it to the filename you specify (e.g. ```TradeFile```). The file will then be saved in the current directory (e.g. ```TradeFile.json```). Exit the program by entering ```0``` at the ```Selection:``` prompt of ```Trade Overview Menu``` and ```0``` at the ```Selection:``` prompt of ```Interactive Menu```.
 
+### Restoration
+
+* If you wish to restore the ```taurus-master``` directory back to its original state, execute either of the following commands:
+```
+rm *.class
+```
+or
+
+```
+rm *.class *.json
+```
+
+depending on whether you saved ```.json``` files which you do not wish to keep.
+
 ## Author
 
 Tanaka Chitete
