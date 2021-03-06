@@ -28,20 +28,15 @@ public class InteractiveAndReportAnalyser {
                 case 1:
                     String assetToExclude = null;
                     try {
-                        if (!excludedAssets.isFull()) {
-                            prompt = "Asset: ";
-                            assetToExclude = UserInterface.userInput(prompt);
-                            assetToExclude = assetToExclude.toUpperCase();
-                            System.out.println();
-        
-                            excludedAssets.add(assetToExclude);
-        
-                            System.out.println("\"" + assetToExclude + "\" will be excluded from " + 
-                                "future analyses\n");
-                        }
-                        else {
-                            System.out.println("Excluded asset limit has been reached\n");
-                        }
+                        prompt = "Asset: ";
+                        assetToExclude = UserInterface.userInput(prompt);
+                        assetToExclude = assetToExclude.toUpperCase();
+                        System.out.println();
+    
+                        excludedAssets.add(assetToExclude);
+    
+                        System.out.println("\"" + assetToExclude + "\" will be excluded from " + 
+                            "future analyses\n");
                     }
                     catch (IllegalArgumentException e) {
                         System.out.println("\"" + assetToExclude + "\" had been excluded " + 
