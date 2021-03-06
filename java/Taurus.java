@@ -5,7 +5,7 @@
  * UNIT: COMP1002
  * PURPOSE: Provide entry point for crypto trading data analysis suite
  * CREATION: 30/09/2020
- * LAST MODIFICATION: 01/11/2020
+ * LAST MODIFICATION: 06/11/2020
  */
 
 public class Taurus {
@@ -15,7 +15,7 @@ public class Taurus {
     public static final String INTERACTIVE = "-i";
     public static final String REPORT = "-r";
     
-    public static void main(String[] args) {
+    public static void main (String[] args) {
         String mode;
         String assetFilename;
         String tradeFilename;
@@ -24,10 +24,10 @@ public class Taurus {
         int argc = args.length;
         if (argc != INTERACTIVE_ARG_COUNT && argc != REPORT_ARG_COUNT) {
             // Informs user of correct Interactive and Report usage
-            System.out.println("Usage (Interactive): java -jar Taurus -i");
+            System.out.println("Usage (Interactive): java -cp .:json-20200518.jar Taurus -i");
             System.out.println("or");
-            System.out.println("Usage (Report):      java -jar Taurus -r <asset filename>.json " + 
-                "<trade filename>.json");
+            System.out.println("Usage (Report):      java -cp .:json-20200518.jar Taurus -r " + 
+                "<asset filename> <trade filename>");
         }
         else {
             mode = args[0];
@@ -37,7 +37,8 @@ public class Taurus {
                 // User has provided incorrect number of CLAs for Interactive
                 if (argc != INTERACTIVE_ARG_COUNT) {
                     // Informs user of correct Interactive usage
-                    System.out.println("Usage (Interactive): java Taurus -i");
+                    System.out.println("Usage (Interactive): java -cp .:json-20200518.jar Taurus " +
+                        "-i");
                 }
                 // Runs in Interactive
                 else {
@@ -53,8 +54,8 @@ public class Taurus {
                 // User has provided incorrect number of CLAs for Report
                 if (argc != REPORT_ARG_COUNT) {
                     // Informs user of correct report usage
-                    System.out.println("Usage (Report): java Taurus -r <asset filename> " + 
-                        "<trade filename>");
+                    System.out.println("Usage (Report): java -cp .:json-20200518.jar Taurus -r " + 
+                        "<asset filename> <trade filename>");
                 }
                 // Runs in Report
                 else {
@@ -65,10 +66,10 @@ public class Taurus {
             // User specified neither Interactive nor Report
             else {
                 // Informs user of correct mode usages
-                System.out.println("Usage (Interactive): java Taurus -i");
+                System.out.println("Usage (Interactive): java -cp .:json-20200518.jar Taurus -i");
                 System.out.println("or");
-                System.out.println("Usage (Report): java Taurus -r <asset filename> " + 
-                    "<trade filename>");
+                System.out.println("Usage (Report):      java -cp .:json-20200518.jar Taurus -r " + 
+                    "<asset filename> <trade filename>");
             }    
         }
     }
