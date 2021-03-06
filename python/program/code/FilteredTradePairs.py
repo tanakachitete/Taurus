@@ -21,7 +21,7 @@ LAST MODIFICATION: 04/03/2021
 """
 
 def subMenu(assetFilter):
-    exchangeInfo = None
+    exchangeInfo = {}
     while True:
         print("Get and Display Crypto-Filtered Trade Pairs\n\n" + \
             "1. Display\n" + \
@@ -38,11 +38,13 @@ def subMenu(assetFilter):
         if selection == 1:
             printFilteredTradePairs(exchangeInfo, assetFilter)
         elif selection == 2:
-            ExchangeInfoGetter.getExchangeInfoFromAPI(exchangeInfo)
+            exchangeInfo = ExchangeInfoGetter.getExchangeInfoFromAPI()
         elif selection == 3:
-            JSON_IOWrapper.loadFromFile(exchangeInfo)
+            exchangeInfo = JSON_IOWrapper.readFromFileWrapper()
         elif selection == 4:
-            JSON_IOWrapper.saveToFile(exchangeInfo)
+            JSON_IOWrapper.writeToFileWrapper(exchangeInfo)
+        else:
+            break
 
 
 """
@@ -55,12 +57,15 @@ LAST MODIFICATION: 04/03/2021
 """
 
 def printFilteredTradePairs(exchangeInfo, assetFilter):
-    if exchangeInfo is None:
+    if not exchangeInfo:
         print("Cannot display before making live request or loading from file")
     else:
-        tradePairs = Quicksort.quicksort(exchangeInfo["symbols"])
+        print(f"Crypto-Filtered Trade Pairs\n")
 
-        for pair in tradePairs:
+        tradePairs = exchangeInfo["symbols"]
+        sortedTradePairs = Quicksort.quicksort(tradePairs, 0, len(tradePairs) - 1, "baseAsset")
+
+        for pair in sortedTradePairs:
             # Ensures only active trade pairs are considered
             if pair["status"] == "TRADING":
                 # Prints pair if neither base nor quote was added to asset filter
@@ -69,4 +74,7 @@ def printFilteredTradePairs(exchangeInfo, assetFilter):
         
         print() # Formatting purposes
 
-        print(f"Excluded Assets: {assetFilter}\n")
+        if len(assetFilter) == 0:
+            print("No cryptos have been added to crypto filter\n")
+        else:
+            print(f"Cryptos in crypto filter: {assetFilter}\n")

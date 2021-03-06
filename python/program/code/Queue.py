@@ -52,6 +52,10 @@ class Queue:
 
     # OPERATORS
 
+    def __str__(self):
+        return str(self.queue)
+
+
     def __len__(self):
         return len(self.queue)
 

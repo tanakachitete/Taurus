@@ -31,7 +31,7 @@ def getInt(low, high, prompt):
                 print(error)
             else:
                 break
-        except TypeError:
+        except ValueError:
             print(error)
             
     return userInput

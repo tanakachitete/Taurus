@@ -38,3 +38,5 @@ def makeCryptoGraph(exchangeInfo):
 
         if hasBase and hasQuote:
             cryptoGraph.connect(base, quote)
+
+    return cryptoGraph

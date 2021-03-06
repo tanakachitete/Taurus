@@ -8,7 +8,7 @@ LAST MODIFICATION: 04/03/2021
 
 import JSON_IOWrapper
 import Quicksort
-import TradePairsAndTradePathsHelper
+import ExchangeInfoGetter
 import UserInterface
 
 """
@@ -23,7 +23,7 @@ LAST MODIFICATION: 04/03/2021
 def subMenu():
     exchangeInfo = None
     while True:
-        print("Get and Display All Trade Pairs Involving Asset\n\n" + \
+        print("Get and Display All Trade Pairs Involving User-specified Crypto\n\n" + \
             "1. Display\n" + \
             "2. Make Live Request\n" + \
             "3. Load from File\n" + \
@@ -38,11 +38,11 @@ def subMenu():
         if selection == 1:
             printAllTradePairs(exchangeInfo)
         elif selection == 2:
-            TradePairsAndTradePathsHelper.getExchangeInfoFromAPI(exchangeInfo)
+            exchangeInfo = ExchangeInfoGetter.getExchangeInfoFromAPI()
         elif selection == 3:
-            JSON_IOWrapper.loadFromFile(exchangeInfo)
+            exchangeInfo = JSON_IOWrapper.readFromFileWrapper()
         elif selection == 4:
-            JSON_IOWrapper.saveToFile(exchangeInfo)
+            JSON_IOWrapper.writeToFileWrapper(exchangeInfo)
         else:
             break
 
@@ -60,15 +60,18 @@ def printAllTradePairs(exchangeInfo):
     if exchangeInfo is None:
         print("Cannot display before making live request or loading from file")
     else:
-        tradePairs = Quicksort.quicksort(exchangeInfo["symbols"])
-
         prompt = "Crypto-currency (case-insensitive): "
         crypto = UserInterface.getStr(prompt)
         crypto = crypto.upper()
 
         print() # Formatting purposes
 
-        for pair in tradePairs:
+        tradePairs = exchangeInfo["symbols"]
+        sortedTradePairs = Quicksort.quicksort(tradePairs, 0, len(tradePairs) - 1, "baseAsset")
+
+        print(f"Trade Pairs involving {crypto}\n")
+
+        for pair in sortedTradePairs:
             # Ensures only active trade pairs are considered
             if pair["status"] == "TRADING": 
                 # Prints trade pair if user-specified crypto-currency is either base or quote
@@ -76,3 +79,5 @@ def printAllTradePairs(exchangeInfo):
                     print(pair["symbol"])
                 elif crypto == pair["quoteAsset"]:
                     print(pair["symbol"])
+
+        print() # Formatting purposes

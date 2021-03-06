@@ -55,6 +55,10 @@ class LinkedList:
             self.next = linkedList.first
 
 
+        def hasNext(self):
+            return not self.next is None
+
+
         def __next__(self):
             element = None
             if self.next is not None:
@@ -148,12 +152,26 @@ class LinkedList:
 
     # OPERATORS
 
+    def __str__(self):
+        nodes = iter(self)
+        string = "["
+        while nodes.hasNext():
+            n = next(nodes)
+            # string += f"{str(n)}, "
+            string += f"{str(n)} -> " 
+        # string = string[:-2] # Removes last ", "
+        string = string[:-4] # Removes last " -> "
+        string += "]"
+
+        return string
+
+
     def __len__(self):
         return self.count
 
 
     def __iter__(self):
-        return Iterator(self)
+        return self.Iterator(self)
 
 
     def isEmpty(self):

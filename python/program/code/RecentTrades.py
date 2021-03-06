@@ -7,8 +7,11 @@ LAST MODIFICATION: 04/03/2021
 """
 
 import datetime
+import Formatter
+import JSON_IO
 import JSON_IOWrapper
 import Quicksort
+import requests
 import UserInterface
 
 """
@@ -21,7 +24,7 @@ LAST MODIFICATION: 04/03/2021
 """
 
 def subMenu():
-    recentTrades = None
+    recentTrades = []
     while True:
         print("Get and Display Recent Trades (sorted by price, quantity and quote)\n\n" + \
             "1. Display\n" + \
@@ -31,17 +34,17 @@ def subMenu():
             "0. Exit\n"
         )
         prompt = "Selection: "
-        selection = UserInterface.getInt()
+        selection = UserInterface.getInt(0, 4, prompt)
         print() # Formatting purposes
 
         if selection == 1:
             printRecentTrades(recentTrades)
         elif selection == 2:
-            getRecentTradesFromAPI(recentTrades)
+            recentTrades = getRecentTradesFromAPI()
         elif selection == 3:
-            JSON_IOWrapper.loadFromFile(recentTrades)
+            recentTrades = JSON_IOWrapper.readFromFileWrapper()
         elif selection == 4:
-            JSON_IOWrapper.saveToFile(recentTrades)
+            JSON_IOWrapper.writeToFileWrapper(recentTrades)
         else:
             break
 
@@ -56,33 +59,33 @@ LAST MODIFICATION: 04/03/2021
 """
 
 def printRecentTrades(recentTrades):
-    if recentTrades is None:
-        print("Cannot display before making live request or loading from file")
+    if not recentTrades:
+        print("Cannot display before making live request or loading from file\n")
     else:
         # Dictionaries are un-sortable so conversion to list is required
         recentTradesList = [trade for trade in recentTrades]
         
         keyStats = ["price", "qty", "quoteQty"]
-        printStats = ["Price", "Quantity", "Quote"]
+        printStats = ["PRICE (USD)", "QUANTITY", "QUOTE (USD)"]
         for (keyStatistic, printStatistic) in zip(keyStats, printStats):
-            Quicksort.quicksort(recentTradesList, "price")
+            Quicksort.quicksort(recentTradesList, 0, len(recentTradesList) - 1, keyStatistic)
 
-            print(f"Top {len(recentTradesList)} Trades Sorted by {printStatistic}")
+            print(f"TOP {len(recentTradesList)} TRADES SORTED BY {printStatistic}\n")
 
             # Iterates in reverse to print recent trades in descending order
             for i in range(len(recentTradesList) - 1, -1, -1):
                 iZeroIndex = i
                 iOneIndex = i + 1
                 currTrade = recentTradesList[iZeroIndex]
-                print(f"{iZeroIndex}")
-                print(f"{currTrade[keyStatistic]}") # TODO - Add formatting
-                print(f"{datetime.datetime(currTrade['time'])}\n")
+                print(f"{iOneIndex}")
+                print(f"{Formatter.formatReal(currTrade[keyStatistic])}")
+                print(f"{Formatter.formatTimeStamp(currTrade['time'])}\n")
 
 
 """
 NAME: getRecentTradesFromAPI
-IMPORT(S): marketInfo (dict)
-EXPORT(S): None
+IMPORT(S): None
+EXPORT(S): recentTrades (list)
 PURPOSE: Get market info from Binance API
 CREATION: 04/03/2021
 LAST MODIFICATION: 04/03/2021
@@ -100,10 +103,12 @@ def getRecentTradesFromAPI():
         tradePair = tradePair.upper()
 
         prompt = "Number of trades to view: "
-        numTradesToView = UserInterface.userInput(1, 100, prompt)
+        numTradesToView = UserInterface.getInt(1, 100, prompt)
         print() # Formatting purposes
 
         request = f"https://api.binance.com/api/v3/trades?symbol={tradePair}&limit={numTradesToView}"
         recentTrades = JSON_IO.readFromUrl(request)
-    except:
-        print("Failed to make live request")
+
+        return recentTrades
+    except (KeyError, TypeError, ValueError, requests.RequestException):
+        print("Failed to make live request\n")

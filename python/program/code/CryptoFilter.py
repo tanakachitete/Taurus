@@ -21,8 +21,8 @@ def subMenu(cryptoFilter):
     while True:
         print("Configure Crypto Filter\n\n" + \
             "1. Display\n" + \
-            "2. Include Crypto\n" + \
-            "3. Exclude Crypto\n" + \
+            "2. Add Crypto to Crypto Filter (to have it be excluded from future analyses)\n" + \
+            "3. Remove Crypto from Crypto Filter (to have it be included in future analyses)\n" + \
             "0. Exit\n"
         )
         prompt = "Selection: "
@@ -31,13 +31,32 @@ def subMenu(cryptoFilter):
         print() # Formatting purposes
 
         if selection == 1:
-            print(f"Excluded cryptos: {cryptoFilter}")
+            printCryptosInCryptoFilter(cryptoFilter)
         elif selection == 2:
             addCryptoToCryptoFilter(cryptoFilter)
         elif selection == 3:
             removeCryptoFromCryptoFilter(cryptoFilter)
         else:
             break
+
+
+"""
+NAME: printCryptosInCryptoFilter
+IMPORT(S): cryptoFilter (Set)
+EXPORT(S): None
+PURPOSE: Print cryptos in crypto filter (those which are to be excluded from future analyses)
+CREATION: 05/03/2021
+LAST MODIFICATION: 05/03/2021
+"""
+
+def printCryptosInCryptoFilter(cryptoFilter):
+    if len(cryptoFilter) == 0:
+        print("No cryptos have been added to crypto filter")
+    else:
+        print(f"Excluded cryptos: {cryptoFilter}")
+
+    print() # Formatting purposes 
+
 
 """
 NAME: addCryptoToCryptoFilter
@@ -55,7 +74,7 @@ def addCryptoToCryptoFilter(cryptoFilter):
     print() # Formatting purposes
 
     if cryptoFilter.has(cryptoToExclude):
-        print("Crypto has already been added to crypto filter ")
+        print("Crypto has already been added to crypto filter")
     else:
         cryptoFilter.add(cryptoToExclude)
         print("Crypto has been added to crypto filter (and will be excluded from future analyses)")
@@ -79,7 +98,7 @@ def removeCryptoFromCryptoFilter(cryptoFilter):
     print() # Formatting purposes
 
     if not cryptoFilter.has(cryptoToInclude):
-        print("Crypto was never added to crypto filter ")
+        print("Crypto was never added to crypto filter")
     else:
         cryptoFilter.remove(cryptoToInclude)
         print("Crypto has been removed to crypto filter (and will be included in future analyses)")

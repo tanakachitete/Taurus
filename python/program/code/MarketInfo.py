@@ -7,7 +7,10 @@ LAST MODIFICATION: 04/03/2021
 """
 
 import datetime
+import Formatter
+import JSON_IO
 import JSON_IOWrapper
+import requests
 import UserInterface
 
 """
@@ -20,7 +23,7 @@ LAST MODIFICATION: 04/03/2021
 """
 
 def subMenu():
-    marketInfo = None
+    marketInfo = {}
     while True:
         print("Get and Display Market Information of Given Trade Pair\n\n" + \
             "1. Display\n" + \
@@ -31,16 +34,17 @@ def subMenu():
         )
         prompt = "Selection: "
         selection = UserInterface.getInt(0, 4, prompt)
+
         print() # Formatting purposes
 
         if selection == 1:
             printMarketInfo(marketInfo)
         elif selection == 2:
-            getMarketInfoFromAPI(marketInfo)
+            marketInfo = getMarketInfoFromAPI()
         elif selection == 3:
-            JSON_IOWrapper.loadFromFile(marketInfo)
+            marketInfo = JSON_IOWrapper.readFromFile()
         elif selection == 4:
-            JSON_IOWrapper.saveToFile(marketInfo)
+            JSON_IOWrapper.writeToFileWrapper(marketInfo)
         else:
             break
 
@@ -55,40 +59,45 @@ LAST MODIFICATION: 04/03/2021
 """
 
 def printMarketInfo(marketInfo):
-    if marketInfo is None:
-        print("Cannot display before making live request or loading from a file")
+    if not marketInfo:
+        print("Cannot display before making live request or loading from a file\n")
     else:
         print(f"{marketInfo['symbol']} Market Information\n")
 
-        print(f"Open Time (system time):  {datetime.datetime(marketInfo['openTime'])}")
-        print(f"Close Time (system time): {datetime.datetime(marketInfo['closeTime'])}\n")
+        print(f"Latest Price (USD):        {Formatter.formatMonetaryFigure(marketInfo['lastPrice'])}")
+        print(f"Price Change (USD):       {Formatter.formatPctChange(marketInfo['priceChange'])}")
+        print(f"Price Change (%):         {Formatter.formatPctChange(marketInfo['priceChangePercent'])}\n")
 
-        print(f"Latest Price (USD):       {marketInfo['lastPrice']}")
-        print(f"Price Change (USD):       {marketInfo['priceChange']}")
-        print(f"Price Change (%):         {marketInfo['priceChangePercent']}")        
+        print(f"Open Time (system time):   {Formatter.formatTimeStamp(marketInfo['openTime'])}")
+        print(f"Close Time (system time):  {Formatter.formatTimeStamp(marketInfo['closeTime'])}")
+
+        print() # Formatting purposes      
 
 
 """
 NAME: getMarketInfoFromAPI
-IMPORT(S): marketInfo (dict)
-EXPORT(S): None
+IMPORT(S): None
+EXPORT(S): marketInfo (dict)
 PURPOSE: Get market info from Binance API
 CREATION: 04/03/2021
 LAST MODIFICATION: 04/03/2021
 """
 
-def getMarketInfoFromAPI(marketInfo):
+def getMarketInfoFromAPI():
     try:
         prompt = "Base crypto-currency (case-insensitive): "
         base = UserInterface.getStr(prompt)
         prompt = "Quote crypto-currency (case-insensitive): "
         quote = UserInterface.getStr(prompt)
+
         print() # Formatting purposes
 
         tradePair = base + quote
         tradePair = tradePair.upper()
 
         request = f"https://api.binance.com/api/v3/ticker/24hr?symbol={tradePair}"
-        marketInfo = JSON_IO.readFromUrl(request)
-    except:
-        print("Failed to make live request")
+        marketInfo = JSON_IO.readFromUrl(request) 
+
+        return marketInfo
+    except (KeyError, TypeError, ValueError, requests.RequestException):
+        print("Failed to make live request\n")

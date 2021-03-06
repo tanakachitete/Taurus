@@ -3,11 +3,12 @@ NAME: TradePaths.py
 AUTHOR: Tanaka Chitete
 PURPOSE: Get and print all trade paths between two given assets
 CREATION: 04/03/2021
-LAST MODIFICATION: 04/03/2021
+LAST MODIFICATION: 05/03/2021
 """
 
+import ExchangeInfoGetter
+import JSON_IOWrapper
 import TradePathsHelper
-import TradePairsAndTradePathsHelper
 import UserInterface
 
 """
@@ -16,13 +17,13 @@ IMPORT(S): None
 EXPORT(S): None
 PURPOSE: Print sub-menu and prepare to launch user-specified operation
 CREATION: 04/03/2021
-LAST MODIFICATION: 04/03/2021
+LAST MODIFICATION: 05/03/2021
 """
 
 def subMenu():
-    exchangeInfo = None
+    exchangeInfo = {}
     while True:
-        print("Get and Display All Trade Paths Between Two Crypto-currencies\n\n" + \
+        print("Get and Display All Trade Paths Between Two User-specified Cryptos\n\n" + \
             "1. Display\n" + \
             "2. Make Live Request\n" + \
             "3. Load from File\n" + \
@@ -37,36 +38,38 @@ def subMenu():
         if selection == 1:
             printTradePaths(exchangeInfo)
         elif selection == 2:
-            TradePairsAndTradePathsHelper.getExchangeInfoFromAPI(exchangeInfo)
+            exchangeInfo = ExchangeInfoGetter.getExchangeInfoFromAPI()
         elif selection == 3:
-            JSON_IOWrapper.loadFromFile(exchangeInfo)
+            exchangeInfo = JSON_IOWrapper.readFromFileWrapper()
         elif selection == 4:
-            JSON_IOWrapper.saveToFile(exchangeInfo)
+            JSON_IOWrapper.writeToFileWrapper(exchangeInfo)
+        else:
+            break
 
 
 """
 NAME: printTradePaths
 IMPORT(S): exchangeInfo (dict)
 EXPORT(S): None
-PURPOSE: Using cryptoGraph, print all trade paths between base and quote
+PURPOSE: Using cryptoGraph, print all trade paths between base and quote cryptos
 CREATION: 04/03/2021
-LAST MODIFICATION: 04/03/2021
+LAST MODIFICATION: 05/03/2021
 """
 
 def printTradePaths(exchangeInfo):
-    if exchangeInfo is None:
-        print("Cannot display before making live request or loading from file")
+    if not exchangeInfo:
+        print("Cannot display before making live request or loading from file\n")
     else:
-        cryptoGraph = TradePathsHelper.makeCryptoGraph(exchangeInfo)
-
         prompt = "Start crypto-currency (case-insensitive): "
-        start = UserInterface.getStr(prompt)
+        start = UserInterface.getStr(prompt).upper()
 
         prompt = "Destination crypto-currency (case-insensitive): "
-        dest = UserInterface.getStr(prompt)
+        dest = UserInterface.getStr(prompt).upper()
 
         print() # Formatting purposes
 
-        print("All Trade Paths from {start} to {dest}\n")
-
+        print(f"All Trade Paths from {start} to {dest}\n")
+        cryptoGraph = TradePathsHelper.makeCryptoGraph(exchangeInfo)
         cryptoGraph.printPaths(start, dest)
+
+        print() # Formatting purposes

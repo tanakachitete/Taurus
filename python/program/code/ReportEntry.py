@@ -3,7 +3,7 @@ NAME: ReportEntry
 AUTHOR: Tanaka Chitete
 PURPOSE: Act and entry point for Taurus (Report Mode)
 CREATION: 03/03/2021
-LAST MODIFICATION: 04/03/2021
+LAST MODIFICATION: 05/03/2021
 """
 
 import JSON_IO
@@ -12,15 +12,15 @@ import Set
 import UserInterface
 
 """
-NAME: entry
+NAME: menu
 IMPORT(S): assetFilename (str), tradeFilename (str)
 EXPORT(S): None
-PURPOSE: Read asset and trade files; retrieve user input and prepare to launch specified operation
+PURPOSE: Print menu and prepare to launch user-specified operation
 CREATION: 03/03/2021
-LAST MODIFICATION: 04/03/2021
+LAST MODIFICATION: 05/03/2021
 """
 
-def entry(assetFilename, tradeFilename):
+def menu(assetFilename, tradeFilename):
     QUIT = 0
     OPTION_3 = 3
 
